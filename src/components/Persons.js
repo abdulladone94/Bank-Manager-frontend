@@ -35,7 +35,7 @@ const Persons = () => {
           return (
             <tr>
               <th>{person.personId}</th>
-              <th>{person.lastName}</th>
+              <th>{person.firstName}</th>
               <th>{person.lastName}</th>
               <th>{person.address}</th>
               <th>{person.dateOfBirth}</th>
