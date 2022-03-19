@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Axios from "axios";
+import { NavBar } from "./SearchBar";
 
 const NewUser = () => {
   const [newUserData, setNewUserData] = useState({
@@ -51,6 +52,7 @@ const NewUser = () => {
 
   return (
     <div className="container">
+      <NavBar />
       <form onSubmit={handleSubmit} class="row g-4">
         <h1>Account Adding Form</h1>
         <div class="col-md-12">

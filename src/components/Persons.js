@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import SearchBar from "./SearchBar";
 
 const Persons = () => {
   const [personsInfor, setPersonsInfor] = useState([]);
+
+  const [searchWord, setSearchWord] = useState("");
+  const [searchPerson, setSearchPerson] = useState([]);
 
   useEffect(() => {
     Axios.get("http://localhost:3001/persons")
@@ -15,8 +19,21 @@ const Persons = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (!searchWord) {
+      setSearchPerson(personsInfor);
+    } else {
+      setSearchPerson(
+        personsInfor.filter((psn) => {
+          return psn.firstName.toLowerCase().includes(searchWord);
+        })
+      );
+    }
+  }, [personsInfor, searchWord]);
+
   return (
     <div className="container">
+      <SearchBar setSearchWord={setSearchWord} />
       <h1>Client Information</h1>
       <table class="table">
         <thead>
@@ -31,7 +48,7 @@ const Persons = () => {
             <th scope="col">NIC</th>
           </tr>
         </thead>
-        {personsInfor.map((person) => {
+        {searchPerson.map((person) => {
           return (
             <tr>
               <th>{person.personId}</th>
