@@ -9,9 +9,6 @@ import BankWiseAccounts from "./components/BankWiseAccounts";
 function App() {
   return (
     <BrowserRouter>
-      <a href="/" class="btn btn-primary">
-        Home
-      </a>
       <Routes>
         <Route path="/banks" element={<Banks />} />
         <Route path="/persons" element={<Persons />} />

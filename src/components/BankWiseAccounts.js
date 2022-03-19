@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import SearchBar from "./SearchBar";
 
 const BankWiseAccounts = () => {
   const [bankWiseAcc, setBankWiseAcc] = useState([]);
+
+  const [searchWord, setSearchWord] = useState("");
+  const [searchPerson, setSearchPerson] = useState([]);
 
   useEffect(() => {
     Axios.get("http://localhost:3001/bankWiseAccounts")
@@ -15,8 +19,21 @@ const BankWiseAccounts = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (!searchWord) {
+      setSearchPerson(bankWiseAcc);
+    } else {
+      setSearchPerson(
+        bankWiseAcc.filter((psn) => {
+          return psn.firstName.toLowerCase().includes(searchWord);
+        })
+      );
+    }
+  }, [bankWiseAcc, searchWord]);
+
   return (
     <div className="container">
+      <SearchBar setSearchWord={setSearchWord} />
       <h1>Bank wise Accounts</h1>
       <table class="table">
         <thead>
@@ -32,7 +49,7 @@ const BankWiseAccounts = () => {
             <th scope="col">NIC</th>
           </tr>
         </thead>
-        {bankWiseAcc.map((account) => {
+        {searchPerson.map((account) => {
           return (
             <tr>
               <th>{account.userId}</th>
